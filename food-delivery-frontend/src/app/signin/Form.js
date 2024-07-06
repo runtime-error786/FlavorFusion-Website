@@ -232,7 +232,7 @@ const Form = () => {
 
             console.log("Form submitted:", signupData);
             try {
-                const response = await axios.post('http://localhost:2001/signup', formData, {
+                const response = await axios.post('http://localhost:8001/signup/', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
