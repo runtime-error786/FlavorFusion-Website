@@ -5,9 +5,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.hashers import make_password
 
-class CustomUser(AbstractUser):
+class CustomUserDB(AbstractUser):
     email = models.EmailField(unique=True)  # Email as primary key
-    country = models.CharField(max_length=100)
+    country = models.CharField(max_length=120)
     picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     # Custom related_name to resolve clashes

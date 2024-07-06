@@ -1,18 +1,27 @@
-# serializers.py
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUserDB
+import re
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)  # Make password write-only
 
     class Meta:
-        model = CustomUser
-        fields = ['email', 'username', 'country', 'password', 'picture','role']  # Include 'password' field in serializer
+        model = CustomUserDB
+        fields = ['email', 'username', 'country', 'password', 'picture', 'role']  # Include 'password' field in serializer
+
+        extra_kwargs = {
+            'username': {'validators': []},  # Clear default validators
+        }
+
+    def validate_username(self, value):
+        # Validate username format (letters, numbers, and spaces only)
+        if not re.match(r'^[a-zA-Z0-9\s]+$', value):
+            raise serializers.ValidationError("Username can only contain letters, numbers, and spaces.")
+        return value
 
     def create(self, validated_data):
-        print("serializer run")
-        password = validated_data.pop('password')  # Remove password from validated_data
-        user = CustomUser.objects.create(**validated_data)  # Create user object
-        user.set_password(password)  # Set password using set_password method
-        user.save()  # Save user object
+        password = validated_data.pop('password')
+        user = CustomUserDB.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
         return user

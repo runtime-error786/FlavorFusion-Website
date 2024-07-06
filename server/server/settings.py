@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'signup',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'otp_generator'
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Example: Replace with your frontend URL
-]
+CORS_ORIGIN_ALLOW_ALL = True  # Only for development, specify your frontend origin in production
+
+# Configure email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mustafa782a@gmail.com'
+EMAIL_HOST_PASSWORD = 'hffr mcnq bzyv dpgl'
+
+AUTH_USER_MODEL = 'signup.CustomUserDB'
