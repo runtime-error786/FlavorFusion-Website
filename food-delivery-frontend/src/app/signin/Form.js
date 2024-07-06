@@ -89,8 +89,10 @@ const Form = () => {
         try {
             e.preventDefault();
 
-            const response = await axios.post('http://localhost:2001/pinauth', signupData);
-            const { verificationCode } = response.data;
+            const response = await axios.post('http://localhost:8001/otp/', signupData);
+            console.log("hello")
+            console.log(response.data)
+            let  verificationCode  = response.data.otp;
             toast.success("Verification code sent successfully");
             setVerificationCodeFromAPI(verificationCode);
             setVerificationCodeSent(true);
@@ -224,12 +226,13 @@ const Form = () => {
         }
         else {
             const formData = new FormData();
-            formData.append('name', signupData.name);
+            formData.append('username', signupData.name);
             formData.append('email', signupData.email);
             formData.append('country', signupData.country);
             formData.append('password', signupData.password);
-            formData.append('file', signupData.file);
-
+            if (signupData.file) {
+                formData.append('picture', signupData.file); // use 'picture' to match serializer field
+            }
             console.log("Form submitted:", signupData);
             try {
                 const response = await axios.post('http://localhost:8001/signup/', formData, {
@@ -252,7 +255,7 @@ const Form = () => {
 
             } catch (error) {
                 console.error('Failed to submit form:', error.response.data);
-                toast.error("That email already registered");
+                toast.error("Enter correct Info");
                 setVerificationCodeFromAPI("");
                 setUserVerificationCode("");
                 setVerificationCodeSent(false)
