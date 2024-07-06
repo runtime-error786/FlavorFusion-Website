@@ -1,8 +1,5 @@
-# models.py
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.contrib.auth.hashers import make_password
 
 class CustomUserDB(AbstractUser):
@@ -36,6 +33,16 @@ class CustomUserDB(AbstractUser):
         default=ROLE_CUSTOMER,
         help_text='User role',
     )
+
+    username = models.CharField(
+        max_length=150,  # or as needed
+        unique=False,  # Changed to False to align with your requirement
+    )
+
+    # Set email as the USERNAME_FIELD
+    USERNAME_FIELD = 'email'
+    # Removed email from REQUIRED_FIELDS
+    REQUIRED_FIELDS = ['username', 'country']
 
     def __str__(self):
         return self.username
