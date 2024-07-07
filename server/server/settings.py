@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'otp_generator',
-    'Goog_Signin'
+    'Goog_Signin',
+    'forgot_pass'
 ]
 
 MIDDLEWARE = [
@@ -163,4 +164,7 @@ CORS_ALLOW_METHODS = [
     'PUT',
     'DELETE',
     'OPTIONS',
+]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
 ]
