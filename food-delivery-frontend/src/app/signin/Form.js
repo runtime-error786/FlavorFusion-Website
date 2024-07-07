@@ -111,8 +111,14 @@ const Form = () => {
         try {
             e.preventDefault();
 
-            const response = await axios.post('http://localhost:2001/pinauth', signInData);
-            const { verificationCode } = response.data;
+            const response = await axios.post('http://localhost:8001/otp/', signInData, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+            console.log("hello")
+            console.log(response.data)
+            let  verificationCode  = response.data.otp;
             toast.success("Verification code sent successfully");
             setforgotVerificationCodeFromAPI(verificationCode);
             setforgotVerificationCodeSent(true);
@@ -192,7 +198,7 @@ const Form = () => {
 
             if(signInData.password!="")
         {
-            const response = await axios.put(`http://localhost:2001/signinForgot`, signInData, {
+            const response = await axios.put(`http://localhost:8001/signinForgot/`, signInData, {
                 withCredentials: true
             });
 
