@@ -138,8 +138,7 @@ EMAIL_HOST_USER = 'mustafa782a@gmail.com'
 EMAIL_HOST_PASSWORD = 'kcog ttmu csiu jjgt'
 
 AUTH_USER_MODEL = 'signup.CustomUserDB'
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL=True
+
 
 from datetime import timedelta
 
@@ -147,6 +146,8 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Adjust the expiration time as needed
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     'authorization',
     'content-type',
@@ -155,4 +156,11 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+]
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'OPTIONS',
 ]
