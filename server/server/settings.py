@@ -144,7 +144,7 @@ CORS_ORIGIN_ALLOW_ALL=True
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Adjust the expiration time as needed
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Adjust the expiration time as needed
 }
 
 CORS_ALLOW_HEADERS = [
