@@ -89,7 +89,11 @@ const Form = () => {
         try {
             e.preventDefault();
 
-            const response = await axios.post('http://localhost:8001/otp/', signupData);
+            const response = await axios.post('http://localhost:8001/otp/', signupData, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
             console.log("hello")
             console.log(response.data)
             let  verificationCode  = response.data.otp;
@@ -273,14 +277,12 @@ const Form = () => {
         console.log(decodedToken);
 
         try {
-            const response = await axios.post(`http://localhost:2001/signingoogle`, { token }, {
-                withCredentials: true
-            });
+            const response = await axios.post(`http://localhost:8001/signingoogle/`, { token_info: decodedToken });
             
             toast.success("sign in successful");
             await dispatch(Auth_direct("Customer"));
             console.log("hw");
-            route.push("/customer/all");
+            // route.push("/customer/all");
         } catch (error) {
             console.error('Failed to sign in:');
             toast.error("Enter correct credentials");
