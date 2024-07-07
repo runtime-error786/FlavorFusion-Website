@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { Rol, } from "./Reducer";
+import { Rol } from "./Reducer";
 
 let Root = combineReducers({
     Rol
