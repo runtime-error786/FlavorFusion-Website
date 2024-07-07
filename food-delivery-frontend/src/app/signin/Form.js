@@ -152,7 +152,7 @@ const Form = () => {
         e.preventDefault();
         console.log("Form submitted:", signInData);
         try {
-            const response = await axios.post(`http://localhost:2001/signin`, signInData, {
+            const response = await axios.post(`http://localhost:8001/signin/`, signInData, {
                 withCredentials: true
             });
 
@@ -161,7 +161,8 @@ const Form = () => {
                 email: "",
                 password: ""
             });
-            if (response.data.user.role == "Customer") {
+            console.log(response)
+            if (response.data.user.role == "customer") {
 
                 await dispatch(Auth_direct("Customer"));
                 console.log("hw");
@@ -169,7 +170,7 @@ const Form = () => {
 
 
             }
-            else if (response.data.user.role == "Admin") {
+            else if (response.data.user.role == "admin") {
                 console.log(response.data.user.role);
                 await dispatch(Auth_direct("Admin"));
                 console.log("hw");
