@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'signup',
     'rest_framework',
     'corsheaders',
-    'otp_generator'
+    'otp_generator',
+    'Goog_Signin'
 ]
 
 MIDDLEWARE = [
