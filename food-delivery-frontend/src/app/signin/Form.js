@@ -15,6 +15,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import SignUpForm from './Signup';
 import SignInForm from './Signin';
+axios.defaults.withCredentials = true;  // Ensure cookies are included in requests
 
 const Form = () => {
 

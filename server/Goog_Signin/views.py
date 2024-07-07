@@ -9,7 +9,6 @@ User = get_user_model()
 @api_view(['POST'])
 def google_sign_in(request):
     data = json.loads(request.body)
-    print(data)
     token_info = data.get('token_info')
     email = token_info.get('email')
     name = token_info.get('name')
@@ -25,6 +24,18 @@ def google_sign_in(request):
             picture=picture,
         )
 
-    
     refresh = RefreshToken.for_user(user)
-    return JsonResponse({'refresh': str(refresh), 'access': str(refresh.access_token)})
+    response = JsonResponse({'refresh': str(refresh), 'access': str(refresh.access_token)})
+
+    # Ensure the cookie is set correctly
+    response.set_cookie(
+        'access', 
+        str(refresh.access_token), 
+        httponly=True, 
+        secure=False,  # Change to True in production
+        samesite='Lax'
+    )
+    response["Access-Control-Allow-Origin"] = "http://localhost:3000"
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Headers"] = "content-type"
+    return response
