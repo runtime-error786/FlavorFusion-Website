@@ -6,13 +6,13 @@ export const Auth = () => {
   return async (dispatch) => {
     try {
       console.log("hi i am run")
-      const response = await axios.get("http://localhost:2001/auth", { withCredentials: true });
-      console.log("reduu",response.data)
-      if(response.data=="Customer" || response.data=="Admin")
+      const response = await axios.get("http://localhost:8001/auth", { withCredentials: true });
+      console.log("reduu",response.data.role)
+      if(response.data.role=="customer" || response.data.role=="admin")
       {
         dispatch({
           type: "Role",
-          payload: response.data
+          payload: response.data.role
         });
         console.log("in if",response);
       }

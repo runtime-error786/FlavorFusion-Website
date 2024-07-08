@@ -37,27 +37,19 @@ const Protect = ({ children }) => {
 
     console.log("role", role);
 
-    if (role === "Admin") {
+    if (role === "admin") {
         console.log("admin role")
-        if ( router === "/admin/profile" || router === "/admin/graph" || router === "/admin/updateprod" || router === "/admin/delproduct" || router === "/admin/addadmin" || router === "/admin/addproduct" ||router === "/admin/deladmin" || router === "/error") {
+        if ( router === "/admin" ||  router === "/error") {
             return <>{children}</>;
         } else {
             route.push("/error");
             return null;
         }
-    } else if (role === "Customer") {
+    } else if (role === "customer") {
         console.log("customer role")
 
         if (
-            router.startsWith("/customer/other") ||
-            router.startsWith("/customer/tv") ||
-            router.startsWith("/customer/watch") ||
-            router.startsWith("/customer/desktop") ||
-            router.startsWith("/customer/mobile") ||
-            router.startsWith("/customer/laptop") ||
-            router.startsWith("/customer/all") ||
-            router.startsWith("/customer/cart") ||
-            router==="/customer/profile" ||
+            router.startsWith("/customer") ||
             router==="/error"
         ) {
             return <>{children}</>;
@@ -70,13 +62,7 @@ const Protect = ({ children }) => {
         console.log("guest role")
 
         if (
-            router==="/customer/other" ||
-            router==="/customer/tv" ||
-            router==="/customer/watch" ||
-            router==="/customer/desktop" ||
-            router==="/customer/mobile" ||
-            router==="/customer/laptop" ||
-            router==="/customer/all" ||
+            router==="/guest" ||
             router==="/error2" ||
             router==="/signin"
         ) {
