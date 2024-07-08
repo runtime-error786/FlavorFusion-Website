@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'otp_generator',
     'Goog_Signin',
-    'forgot_pass'
+    'forgot_pass',
+    'Get_role'
 ]
 
 MIDDLEWARE = [
