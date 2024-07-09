@@ -24,6 +24,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -109,6 +111,7 @@ const theme = createTheme({
 export default function PersistentDrawerLeft() {
     const currentTheme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [imageURL, setImageURL] = useState(null);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -117,6 +120,33 @@ export default function PersistentDrawerLeft() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    useEffect(() => {
+        const fetchUserImage = async () => {
+            try {
+                const response = await axios.get('http://localhost:8001/img/', {
+                    withCredentials: true // Include credentials if needed for authentication
+                });
+
+                if (response.status === 200) {
+                    if (response.data.image_url) {
+                        setImageURL(response.data.image_url);
+                    } else if (response.data.image_data) {
+                        setImageURL(`data:image/jpeg;base64,${response.data.image_data}`);
+                    } else {
+                        console.error('Invalid image data received from server');
+                    }
+                } else {
+                    console.error('Failed to fetch user image');
+                }
+            } catch (error) {
+                console.error('Error fetching user image:', error);
+            }
+        };
+
+        fetchUserImage();
+    }, []);
+
 
     const handleProfileClick = () => {
         // Redirect to profile page logic here
@@ -149,7 +179,7 @@ export default function PersistentDrawerLeft() {
                             onClick={handleProfileClick}
                             sx={{ ml: 2 }}
                         >
-                            <AccountCircleIcon />
+                            <img src={imageURL} alt="User Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                         </IconButton>
                     </Toolbar>
                 </AppBar>
@@ -248,7 +278,7 @@ export default function PersistentDrawerLeft() {
                 </Drawer>
                 <Main open={open}>
                     <DrawerHeader />
-                    
+
                 </Main>
             </Box>
         </ThemeProvider>

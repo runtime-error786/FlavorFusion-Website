@@ -22,7 +22,12 @@ def google_sign_in(request):
             email=email,
             password='123',  # Default password for users signing in with Google
             picture=picture,
+            role=User.ROLE_CUSTOMER  # Assuming a default role for new users
         )
+
+    if user.role == 'admin':
+        # Return an error response for admin users
+        return JsonResponse({'error': 'Enter valid credentials. Admin access not allowed.'}, status=403)
 
     refresh = RefreshToken.for_user(user)
     response = JsonResponse({'refresh': str(refresh), 'access': str(refresh.access_token)})
