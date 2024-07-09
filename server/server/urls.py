@@ -6,6 +6,7 @@ from Goog_Signin.views import google_sign_in
 from signin.views import sign_in
 from forgot_pass.views import update_password
 from Get_role.views import auth_view
+from get_pic.views import get_user_image
 
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
@@ -18,6 +19,7 @@ urlpatterns = [
     path('signingoogle/', google_sign_in, name='google-sign-in'),
     path('signin/', sign_in, name='sign_in'),
     path('signinForgot/', update_password, name='update_password'),
-    path('auth/', auth_view, name='auth')
+    path('auth/', auth_view, name='auth'),
+    path('img/', get_user_image, name='get_user_image'),
 
 ]

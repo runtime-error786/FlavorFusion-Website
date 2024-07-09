@@ -248,6 +248,7 @@ export default function PersistentDrawerLeft() {
                 </Drawer>
                 <Main open={open}>
                     <DrawerHeader />
+                    
                 </Main>
             </Box>
         </ThemeProvider>

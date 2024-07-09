@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'otp_generator',
     'Goog_Signin',
     'forgot_pass',
-    'Get_role'
+    'Get_role',
+    'rest_framework_simplejwt',
+    'get_pic'
 ]
 
 MIDDLEWARE = [
@@ -145,8 +147,11 @@ AUTH_USER_MODEL = 'signup.CustomUserDB'
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Adjust the expiration time as needed
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Adjust as needed
+    'AUTH_COOKIE': 'access',  # Ensure this matches the cookie name
 }
+
+
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
