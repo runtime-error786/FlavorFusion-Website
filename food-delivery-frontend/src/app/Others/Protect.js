@@ -4,6 +4,8 @@ import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { Auth } from '@/Redux/Action';
 import "bootstrap/dist/css/bootstrap.min.css";
+import Lottie from 'lottie-react';
+import loader from "../loaders.json"
 
 const Protect = ({ children }) => {
     const role = useSelector((state) => state.Rol);

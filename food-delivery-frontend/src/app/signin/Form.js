@@ -172,7 +172,7 @@ const Form = () => {
 
                 await dispatch(Auth_direct("Customer"));
                 console.log("hw");
-                route.push("/customer/all");
+                route.push("/customer/");
 
 
             }
@@ -180,7 +180,7 @@ const Form = () => {
                 console.log(response.data.user.role);
                 await dispatch(Auth_direct("Admin"));
                 console.log("hw");
-                route.push("admin/addadmin");
+                route.push("admin/");
             }
 
         } catch (error) {
@@ -290,7 +290,7 @@ const Form = () => {
             toast.success("sign in successful");
             await dispatch(Auth_direct("Customer"));
             console.log("hw");
-            // route.push("/customer/all");
+            route.push("/customer");
         } catch (error) {
             console.error('Failed to sign in:');
             toast.error("Enter correct credentials");
@@ -366,9 +366,6 @@ const Form = () => {
                 </div>
                 <Script1></Script1>
                 <Toaster />
-
-
-
             </div>
         </>
     )
