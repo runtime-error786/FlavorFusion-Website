@@ -13,11 +13,11 @@ def get_user_image(request):
     try:
         user = request.user
         user = get_object_or_404(CustomUserDB, id=user.id)
-        
+        print(user)
         if user.picture:
             if 'googleusercontent.com' in user.picture.url:
                 # If image is from Google Cloud, return the image URL directly
-                image_url = user.picture.url
+                image_url = str(user.picture)  # Convert ImageFieldFile to string (URL)
                 return JsonResponse({'image_url': image_url})
             else:
                 # Read the local image file and encode it as base64

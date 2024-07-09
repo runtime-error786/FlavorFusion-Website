@@ -11,7 +11,7 @@ const UserProfile = () => {
                 const response = await axios.get('http://localhost:8001/img/', {
                     withCredentials: true // Include credentials if needed for authentication
                 });
-
+                console.log(response)
                 if (response.status === 200) {
                     if (response.data.image_url) {
                         setImageURL(response.data.image_url);
