@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'Get_role',
     'rest_framework_simplejwt',
     'get_pic',
-    'make_admin'
+    'make_admin',
+    'products'
 ]
 
 MIDDLEWARE = [
