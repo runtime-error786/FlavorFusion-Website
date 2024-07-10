@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'forgot_pass',
     'Get_role',
     'rest_framework_simplejwt',
-    'get_pic'
+    'get_pic',
+    'make_admin'
 ]
 
 MIDDLEWARE = [
@@ -174,3 +175,11 @@ CORS_ALLOW_METHODS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',  # Ensure MultiPartParser is included
+    ),
+}
