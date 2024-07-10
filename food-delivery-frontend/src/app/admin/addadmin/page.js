@@ -22,13 +22,14 @@ const Add_admin = () => {
   
     try {
       const formData = new FormData();
-      formData.append("name", name);
+      formData.append("username", name);
       formData.append("email", email);
       formData.append("country", country);
       formData.append("password", password);
-      formData.append("image", image); 
-  
-      let response = await axios.post('http://localhost:2001/addAdmin', formData, {
+      formData.append("picture", image); 
+      formData.append("role", 'admin'); 
+
+      let response = await axios.post('http://localhost:8001/create_admin/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
