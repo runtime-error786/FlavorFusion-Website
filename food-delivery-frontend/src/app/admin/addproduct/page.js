@@ -18,7 +18,7 @@ const Add_product = () => {
     const [uploadProgress, setUploadProgress] = useState(0);
 
     const handleSubmit = async () => {
-        if (!name || !company || !qty || !price || !description || !image || !category) {
+        if (!name  || !qty || !price || !description || !image || !category) {
             toast.error("Please fill in all fields");
             return;
         }
@@ -31,14 +31,13 @@ const Add_product = () => {
         try {
             const formData = new FormData();
             formData.append("name", name);
-            formData.append("company", company);
-            formData.append("qty", qty);
+            formData.append("quantity", qty);
             formData.append("price", price);
             formData.append("description", description);
             formData.append("category", category);
-            formData.append("image", image);
+            formData.append("picture", image);
 
-            let response = await axios.post('http://localhost:2001/addproduct', formData, {
+            let response = await axios.post('http://localhost:8001/products/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -83,15 +82,7 @@ const Add_product = () => {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
-                <div className="input-container">
-                    <input
-                        type="text"
-                        placeholder="Company"
-                        required
-                        value={company}
-                        onChange={(e) => setCompany(e.target.value)}
-                    />
-                </div>
+               
                 <div className="input-container">
                     <input
                         type="number"
