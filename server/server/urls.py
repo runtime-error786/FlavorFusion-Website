@@ -9,6 +9,8 @@ from Get_role.views import auth_view
 from get_pic.views import get_user_image
 from make_admin.views import create_admin_user
 from products.views import product_list_create,product_detail
+from signout.views import sign_out
+
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
 
@@ -24,5 +26,5 @@ urlpatterns = [
     path('create_admin/', create_admin_user, name='create_admin_user'),
     path('products/', product_list_create, name='product-list-create'),
     path('products/<int:pk>/', product_detail, name='product-detail'),
-
+    path('sign_out/', sign_out, name='sign_out'),
 ]
