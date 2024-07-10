@@ -1,11 +1,10 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from .models import Product
 from .serializer import ProductSerializer
 from server.JWT import CustomJWTAuthentication  # Replace with the actual path
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 @api_view(['GET', 'POST'])
 @authentication_classes([CustomJWTAuthentication])
@@ -17,6 +16,10 @@ def product_list_create(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        product_name = request.data.get('name')
+        if Product.objects.filter(name__iexact=product_name).exists():
+            return Response({'error': 'Product already exists'}, status=status.HTTP_400_BAD_REQUEST)
+        
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

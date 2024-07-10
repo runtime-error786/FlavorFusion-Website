@@ -57,13 +57,10 @@ const Add_product = () => {
             setCategory("");
             setUploadProgress(0);
         } catch (error) {
-
-            if (error.response.data.error == "Product already exists") {
-                toast.error("Error adding product");
-                console.error("Error adding admin:");
-            }
-            else {
-                toast.error("Your session expire.Please Sign out & Sign in again");
+            if (error.response && error.response.data && error.response.data.error === "Product already exists") {
+                toast.error("Product already exists");
+            } else {
+                toast.error("Your session has expired. Please sign out and sign in again.");
             }
         }
     };
