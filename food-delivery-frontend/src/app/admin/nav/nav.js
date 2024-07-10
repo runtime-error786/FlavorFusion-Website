@@ -26,6 +26,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useRouter } from 'next/navigation';
 
 const drawerWidth = 240;
 
@@ -112,7 +114,7 @@ export default function PersistentDrawerLeft() {
     const currentTheme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [imageURL, setImageURL] = useState(null);
-
+    const router = useRouter();
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -151,6 +153,24 @@ export default function PersistentDrawerLeft() {
     const handleProfileClick = () => {
         // Redirect to profile page logic here
         console.log('Redirecting to profile page');
+    };
+
+    const handleSignOut = async () => {
+        try {
+            const response = await axios.post('http://localhost:8001/sign_out/', {}, {
+                withCredentials: true // Include credentials if needed for authentication
+            });
+
+            if (response.status === 200) {
+                // Handle successful sign out, e.g., redirect to login page
+                console.log('Sign out successful');
+                router.push('/signin'); // Redirect to guest page
+            } else {
+                console.error('Failed to sign out');
+            }
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
     };
 
     return (
@@ -263,6 +283,15 @@ export default function PersistentDrawerLeft() {
                                     <DashboardIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Dashboard" />
+                            </ListItemButton>
+                        </ListItem>
+
+                        <ListItem disablePadding sx={{ color: 'gray' }}>
+                            <ListItemButton onClick={handleSignOut}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Sign Out" />
                             </ListItemButton>
                         </ListItem>
                     </List>
