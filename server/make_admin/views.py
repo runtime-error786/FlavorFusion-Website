@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @permission_classes([IsAuthenticated])
 def create_admin_user(request):
     if request.method == 'POST':
-        data = request.data.copy()  # Make a copy to modify it safely
+        data = request.data  # Make a copy to modify it safely
         
         # Extract the picture file from request.FILES if present
         picture_file = request.FILES.get('picture')

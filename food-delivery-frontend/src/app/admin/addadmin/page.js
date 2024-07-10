@@ -44,8 +44,8 @@ const Add_admin = () => {
       setImage(null);
       setUploadProgress(0);
     } catch (error) {
-     
-      if(error.response.data.error=="Email already exists")
+        console.log(error)
+      if(error.response.status==400)
       {
         toast.error("Error adding admin");
         console.error("Error adding admin:");
