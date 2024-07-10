@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    
+  }
+  
+  .login-container {
+    width: 80%; 
+    max-width: 400px; 
+    margin: 10px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: -1;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  form {
+    margin-top: 20px;
+  }
+  
+  .input-container {
+    margin-bottom: 20px;
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color:#ffb703;
+    color: black;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #fcbf49;
+  }
+  
+  .input-container input[type="file"] {
+    display: none;
+  }
+  
+  #add1 {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffb703;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #add1:hover {
+    background-color: #fcbf49;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .login-container {
+      width: 90%; 
+    max-width: 400px; 
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: -1; 
+    }
+  }
+  
+#imageInput{
+    background-color:#ffb703;
+  }

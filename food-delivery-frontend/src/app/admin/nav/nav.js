@@ -203,7 +203,7 @@ export default function PersistentDrawerLeft() {
                         </IconButton>
                     </DrawerHeader>
                     <List>
-                        <ListItem disablePadding component="a" href="/add-admin" sx={{ color: 'gray' }}>
+                        <ListItem disablePadding component="a" href="/admin/addadmin" sx={{ color: 'gray' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <PersonAddIcon />
@@ -265,20 +265,10 @@ export default function PersistentDrawerLeft() {
                                 <ListItemText primary="Dashboard" />
                             </ListItemButton>
                         </ListItem>
-
-                        <ListItem disablePadding component="a" href="/profile" sx={{ color: 'gray' }}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <AccountCircleIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Profile" />
-                            </ListItemButton>
-                        </ListItem>
                     </List>
                 </Drawer>
                 <Main open={open}>
                     <DrawerHeader />
-
                 </Main>
             </Box>
         </ThemeProvider>
