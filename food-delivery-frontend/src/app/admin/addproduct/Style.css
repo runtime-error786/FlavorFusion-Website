@@ -3,39 +3,44 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-  }
-  
-  .login-container {
-    width: 80%; /* Change width to percentage for responsiveness */
-    max-width: 400px; /* Set a maximum width */
+}
+
+.login-container {
+    width: 80%;
+    max-width: 400px;
     margin: 0px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
+}
+
+h2 {
     text-align: center;
     color: #333;
-  }
-  
-  form {
+}
+
+form {
     margin-top: 20px;
-  }
-  
-  .input-container {
+}
+
+.input-container {
     margin-bottom: 20px;
-  }
-  
-  .input-container input {
+}
+
+.input-container input,
+.input-container textarea,
+.dropdown-container {
     width: 100%;
+}
+
+.input-container input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  .custom-file-upload {
+}
+
+.custom-file-upload {
     display: inline-block;
     padding: 10px 20px;
     cursor: pointer;
@@ -43,17 +48,17 @@ body {
     color: black;
     border-radius: 5px;
     border: none;
-  }
-  
-  .custom-file-upload:hover {
+}
+
+.custom-file-upload:hover {
     background-color: #fcbf49;
-  }
-  
-  .input-container input[type="file"] {
+}
+
+.input-container input[type="file"] {
     display: none;
-  }
-  
-  #add1 {
+}
+
+#add1 {
     width: 100%;
     padding: 10px;
     border: none;
@@ -62,35 +67,37 @@ body {
     color: black;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  #add1:hover {
+}
+
+#add1:hover {
     background-color: #fcbf49;
-  }
-  
-  @media only screen and (max-width: 600px) {
+}
+
+@media only screen and (max-width: 600px) {
     .login-container {
-      width: 90%; /* Change width to percentage for responsiveness */
-      max-width: 400px; /* Set a maximum width */
-      margin: 40px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 400px;
+        margin: 40px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-  }
-  
-  
+}
+
 .progress-container {
     text-align: center;
     width: 70%;
     margin-left: 15%;
-  }
-  
-  .progress-container progress {
+}
+
+.progress-container progress {
     text-align: center;
     width: 70%;
-  }
-  
-  
-  
+}
+.custom-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc; /* Set border to 2px */
+    border-radius: 5px;
+}

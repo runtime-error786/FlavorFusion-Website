@@ -29,7 +29,7 @@ const Protect = ({ children }) => {
     if (loading) {
         return <>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <div style={{width: "6rem", height: "6rem",borderWidth:"10px"}} className="spinner-border text-primary" role="status">
+                <div style={{width: "6rem", height: "6rem",borderWidth:"10px"}} className="spinner-border text-warning" role="status">
                     <span className="sr-only"></span>
                 </div>
             </div>
