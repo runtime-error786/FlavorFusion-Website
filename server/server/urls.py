@@ -14,6 +14,8 @@ from signout.views import sign_out
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
 
+router1 = DefaultRouter()
+router1.register(r'users', CustomUserViewSet)
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('otp/', send_otp, name='generate-otp'),
@@ -27,4 +29,5 @@ urlpatterns = [
     path('products/', product_list_create, name='product-list-create'),
     path('products/<int:pk>/', product_detail, name='product-detail'),
     path('sign_out/', sign_out, name='sign_out'),
+    path('', include(router1.urls)),
 ]

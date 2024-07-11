@@ -7,7 +7,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUserDB
-        fields = ['email', 'username', 'country', 'password', 'picture', 'role']  # Include 'password' field in serializer
+        fields = ['id','email', 'username', 'country', 'password', 'picture', 'role']  # Include 'password' field in serializer
 
         extra_kwargs = {
             'username': {'validators': []},  # Clear default validators
