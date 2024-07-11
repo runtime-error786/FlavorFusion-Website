@@ -232,7 +232,7 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
 
-                        <ListItem disablePadding component="a" href="/delete-admin" sx={{ color: 'gray' }}>
+                        <ListItem disablePadding component="a" href="/admin/deladmin" sx={{ color: 'gray' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <PersonRemoveIcon />

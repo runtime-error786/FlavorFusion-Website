@@ -1,8 +1,13 @@
 import { combineReducers } from "redux";
-import { Rol } from "./Reducer";
+import { Rol, Next, Totalpage, SearchUser, SortUser,Record } from './Reducer';
 
-let Root = combineReducers({
-    Rol
-})
-
+const Root = combineReducers({
+    Rol,
+    Next,
+    Totalpage,
+    SearchUser,
+    SortUser,
+    Record
+  });
+  
 export { Root };

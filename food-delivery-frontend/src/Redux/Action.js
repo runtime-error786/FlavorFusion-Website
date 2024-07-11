@@ -48,3 +48,53 @@ export const Auth_direct = (c) => {
 };
 
 
+export const NextPage = (page) => ({
+  type: 'NEXT_PAGE',
+  payload: page
+});
+
+export const Total = (total) => ({
+  type: 'TOTAL_PAGE',
+  payload: total
+});
+
+export const SearchAction = (term) => ({
+  type: 'SEARCH',
+  payload: term
+});
+
+export const SortAction = (sort) => ({
+  type: 'SORT',
+  payload: sort
+});
+
+export const ShowAllUser = (SearchUser, SortUser, currentPage) => {
+  return async (dispatch) => {
+      try {
+          const url = `http://localhost:8001/users/admins/`;
+          const response = await axios.get(url, {
+              params: {
+                  search: SearchUser,
+                  sort: SortUser,
+                  page: currentPage,
+              },
+              withCredentials: true
+          });
+          console.log(response)
+          // const { data, totalPages } = response.data; 
+          const data = response.data; 
+
+          dispatch({
+              type: "Record",
+              payload: data 
+          });
+
+          dispatch({
+              type: "Total",
+              payload: totalPages 
+          });
+      } catch (error) {
+        toast.error("Your session expire.Please Sign out & Sign in again");
+      }
+  };
+};
