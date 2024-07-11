@@ -12,7 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import authentication_classes, permission_classes
 
 class CustomUserPagination(PageNumberPagination):
-    page_size = 2  # Number of records per page
+    page_size = 10  # Number of records per page
     page_size_query_param = 'page_size'
     max_page_size = 100  # Maximum records per page
 
