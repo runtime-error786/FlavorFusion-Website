@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'get_pic',
     'make_admin',
-    'products'
+    'products',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -183,4 +184,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',  # Ensure MultiPartParser is included
     ),
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',  # Enables Django Filter support
+    ],
 }
