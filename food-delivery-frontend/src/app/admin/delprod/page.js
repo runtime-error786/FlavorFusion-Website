@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import "./Style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchAction, ShowAllUser, SortAction, NextPage } from "@/Redux/Action";
+import { SearchAction, ShowAllUser1, SortAction, NextPage } from "@/Redux/Action";
 import Pagination from "../Others/Paging";
 import SearchBar from "../Others/SearchBar";
 import SortControls from "../Others/Sort";
@@ -18,7 +18,7 @@ const AdminTable = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(ShowAllUser(searchUser, sortUser, currentPage));
+        dispatch(ShowAllUser1(searchUser, sortUser, currentPage));
     }, [searchUser, sortUser, currentPage, dispatch]);
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const AdminTable = () => {
                 withCredentials: true
             });
             console.log(`User with ID ${id} deleted successfully`);
-            await dispatch(ShowAllUser(searchUser, sortUser, currentPage));
+            await dispatch(ShowAllUser1(searchUser, sortUser, currentPage));
         } catch (error) {
             toast.error("Your session expired. Please sign out and sign in again.");
         }
@@ -58,8 +58,9 @@ const AdminTable = () => {
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Qty</th>
                                 <th>Price</th>
+                                <th>Qty</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,8 +68,9 @@ const AdminTable = () => {
                                 <React.Fragment key={admin.id}>
                                     <tr>
                                         <td>{admin.id}</td>
-                                        <td>{admin.username}</td>
-                                        <td>{admin.email}</td>
+                                        <td>{admin.name}</td>
+                                        <td>{admin.price}</td>
+                                        <td>{admin.quantity}</td>
                                         <td>
                                             <button className="del1" onClick={() => handleDelete(admin.id)}>
                                                 Delete
@@ -76,7 +78,7 @@ const AdminTable = () => {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colSpan="4"><hr /></td>
+                                        <td colSpan="5"><hr /></td>
                                     </tr>
                                 </React.Fragment>
                             ))}
