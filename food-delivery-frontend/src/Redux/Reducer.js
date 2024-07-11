@@ -1,6 +1,6 @@
 const initialState = {
     role: "",
-    nextPage: 0,
+    nextPage: 1,
     totalPage: 0,
     searchTerm: "",
     sortUser: false,

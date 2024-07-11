@@ -8,12 +8,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Pagination = () => {
-    const currentPage = useSelector((state) => state.Next);
-    const totalPageCount = useSelector((state) => state.Totalpage);
+    const currentPage = useSelector((state) => state.Next); // Assuming state.Next holds current page number
+    const totalPageCount = useSelector((state) => state.Totalpage); // Assuming state.Totalpage holds total page count
     const dispatch = useDispatch();
 
     const handlePageChange = ({ selected }) => {
-        dispatch(NextPage(selected));
+        // `selected` is the 0-based index of the selected page
+        // Dispatch NextPage action with selected + 1 to adjust for 1-based page count
+        dispatch(NextPage(selected + 1));
     };
 
     return (
@@ -23,7 +25,7 @@ const Pagination = () => {
             onPageChange={handlePageChange}
             containerClassName={"pagination"}
             activeClassName={"active"}
-            forcePage={currentPage}
+            forcePage={currentPage - 1} // Adjust to 0-based index for `react-paginate`
             renderOnZeroPageCount={null}
             nextLabel={<FontAwesomeIcon size="xl" icon={faCaretRight} />}
             previousLabel={<FontAwesomeIcon size="xl" icon={faCaretLeft} />}

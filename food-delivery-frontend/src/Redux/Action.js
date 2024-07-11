@@ -82,15 +82,15 @@ export const ShowAllUser = (SearchUser, SortUser, currentPage) => {
           });
           console.log(response)
           // const { data, totalPages } = response.data; 
-          const data = response.data; 
-
+          const data = response.data.data; 
+          const totalPages = response.data.total_pages;
           dispatch({
               type: "Record",
               payload: data 
           });
 
           dispatch({
-              type: "Total",
+              type: "TOTAL_PAGE",
               payload: totalPages 
           });
       } catch (error) {

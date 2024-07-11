@@ -22,30 +22,27 @@ const AdminTable = () => {
     }, [searchUser, sortUser, currentPage, dispatch]);
 
     useEffect(() => {
-        dispatch(NextPage(0));
+        dispatch(NextPage(1));
     }, [searchUser, sortUser, dispatch]);
 
     useEffect(() => {
-        dispatch(NextPage(0));
+        dispatch(NextPage(1));
         dispatch(SearchAction(""));
         dispatch(SortAction(false));
     }, [dispatch]);
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:2001/DelAdmin/${id}`, {
+            await axios.delete(`http://localhost:8001/signup/delete-admin/${id}/`, {
                 withCredentials: true
             });
-
             console.log(`User with ID ${id} deleted successfully`);
             await dispatch(ShowAllUser(searchUser, sortUser, currentPage));
-            if (delAdmin.length === 1) {
-                dispatch(NextPage(currentPage - 1));
-            }
         } catch (error) {
             toast.error("Your session expired. Please sign out and sign in again.");
         }
     };
+    
 
     return (
         <>
