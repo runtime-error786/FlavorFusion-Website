@@ -63,7 +63,8 @@ const AdminTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {delAdmin.map((admin) => (
+                        {delAdmin.length > 0 ? (
+                            delAdmin.map((admin) => (
                                 <React.Fragment key={admin.id}>
                                     <tr>
                                         <td>{admin.id}</td>
@@ -79,7 +80,15 @@ const AdminTable = () => {
                                         <td colSpan="4"><hr /></td>
                                     </tr>
                                 </React.Fragment>
-                            ))}
+                            ))) : (
+                                <tr>
+                                    <td colSpan="5">
+                                        <div className="no-products">
+                                            <strong>No More Admin</strong>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

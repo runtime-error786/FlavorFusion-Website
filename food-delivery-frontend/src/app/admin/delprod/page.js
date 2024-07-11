@@ -33,15 +33,16 @@ const AdminTable = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8001/signup/delete-admin/${id}/`, {
+            await axios.delete(`http://localhost:8001/products/${id}/`, {
                 withCredentials: true
             });
-            console.log(`User with ID ${id} deleted successfully`);
+            console.log(`Product with ID ${id} deleted successfully`);
             await dispatch(ShowAllUser1(searchUser, sortUser, currentPage));
         } catch (error) {
             toast.error("Your session expired. Please sign out and sign in again.");
         }
     };
+    
     
 
     return (
@@ -64,24 +65,34 @@ const AdminTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {delAdmin.map((admin) => (
-                                <React.Fragment key={admin.id}>
-                                    <tr>
-                                        <td>{admin.id}</td>
-                                        <td>{admin.name}</td>
-                                        <td>{admin.price}</td>
-                                        <td>{admin.quantity}</td>
-                                        <td>
-                                            <button className="del1" onClick={() => handleDelete(admin.id)}>
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan="5"><hr /></td>
-                                    </tr>
-                                </React.Fragment>
-                            ))}
+                            {delAdmin.length > 0 ? (
+                                delAdmin.map((admin) => (
+                                    <React.Fragment key={admin.id}>
+                                        <tr>
+                                            <td>{admin.id}</td>
+                                            <td>{admin.name}</td>
+                                            <td>{admin.price}</td>
+                                            <td>{admin.quantity}</td>
+                                            <td>
+                                                <button className="del1" onClick={() => handleDelete(admin.id)}>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan="5"><hr /></td>
+                                        </tr>
+                                    </React.Fragment>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="5">
+                                        <div className="no-products">
+                                            <strong>No products available</strong>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -91,5 +102,4 @@ const AdminTable = () => {
         </>
     );
 };
-
 export default AdminTable;

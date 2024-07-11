@@ -250,7 +250,7 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
 
-                        <ListItem disablePadding component="a" href="/delete-product" sx={{ color: 'gray' }}>
+                        <ListItem disablePadding component="a" href="/admin/delprod" sx={{ color: 'gray' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <DeleteIcon />
