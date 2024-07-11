@@ -7,6 +7,9 @@ from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
+from server.JWT import CustomJWTAuthentication  # Replace with the actual path
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import authentication_classes, permission_classes
 
 class CustomUserPagination(PageNumberPagination):
     page_size = 2  # Number of records per page
@@ -21,10 +24,12 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     ordering_fields = ['username']
     pagination_class = CustomUserPagination  # Enable pagination
 
-    @action(detail=False, methods=['get'], url_path='admins')
+    @action(detail=False, methods=['get'], url_path='admins', 
+            authentication_classes=[CustomJWTAuthentication], 
+            permission_classes=[IsAuthenticated])
     def get_admins(self, request):
         sort = request.query_params.get('sort', 'true').lower()
-        queryset = CustomUserDB.objects.filter(role=CustomUserDB.ROLE_ADMIN)
+        queryset = CustomUserDB.objects.filter(role=CustomUserDB.ROLE_ADMIN).exclude(pk=request.user.pk)
         
         # Apply username filtering if provided in query params
         username_param = request.query_params.get('search')

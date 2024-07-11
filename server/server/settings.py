@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'get_pic',
     'make_admin',
     'products',
-    'django_filters'
+    'django_filters',
+    'deladmin'
 ]
 
 MIDDLEWARE = [

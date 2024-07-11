@@ -10,6 +10,7 @@ from get_pic.views import get_user_image
 from make_admin.views import create_admin_user
 from products.views import product_list_create,product_detail
 from signout.views import sign_out
+from deladmin.views import DeleteAdminView
 
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
@@ -30,4 +31,6 @@ urlpatterns = [
     path('products/<int:pk>/', product_detail, name='product-detail'),
     path('sign_out/', sign_out, name='sign_out'),
     path('', include(router1.urls)),
+    path('signup/delete-admin/<int:pk>/', DeleteAdminView.as_view(), name='delete_admin'),  # New URL pattern
+
 ]
