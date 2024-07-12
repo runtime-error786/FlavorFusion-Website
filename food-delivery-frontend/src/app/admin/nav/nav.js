@@ -259,7 +259,7 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
 
-                        <ListItem disablePadding component="a" href="/update-product" sx={{ color: 'gray' }}>
+                        <ListItem disablePadding component="a" href="/admin/updateprod" sx={{ color: 'gray' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <EditIcon />
