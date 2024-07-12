@@ -46,17 +46,27 @@ const AdminTable = () => {
 
     const handleUpdate = async () => {
         try {
-            const { id, name, price, quantity } = selectedProduct;
-            await axios.put(`http://localhost:8001/products/${id}/`, { name, price, quantity }, {
+            const { id, name, price, quantity, description, category } = selectedProduct;
+            await axios.put(`http://localhost:8001/products/${id}/`, { name, price, quantity, description, category }, {
                 withCredentials: true
             });
             console.log(`Product with ID ${id} updated successfully`);
             await dispatch(ShowAllUser1(searchUser, sortUser, currentPage));
             closeModal();
         } catch (error) {
-            toast.error("Your session expired. Please sign out and sign in again.");
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                if (errorData.name) {
+                    toast.error(`Error: ${errorData.name.join(", ")}`);
+                } else {
+                    toast.error("An unexpected error occurred. Please try again.");
+                }
+            } else {
+                toast.error("Your session expired. Please sign out and sign in again.");
+            }
         }
     };
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -121,8 +131,6 @@ const AdminTable = () => {
                 <Toaster />
             </div>
 
-
-
             {modalIsOpen && (
                 <div className="custom-modal-overlay">
                     <div className="custom-modal">
@@ -153,6 +161,15 @@ const AdminTable = () => {
                                 type="number"
                                 name="quantity"
                                 value={selectedProduct.quantity}
+                                onChange={handleInputChange}
+                            />
+                            <label>
+                                Description:
+                            </label>
+                            <input
+                                type="text"
+                                name="description"
+                                value={selectedProduct.description}
                                 onChange={handleInputChange}
                             />
                             <div className="button-group">

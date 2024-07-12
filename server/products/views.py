@@ -80,10 +80,15 @@ def product_detail(request, pk):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
+        print("PUT request data:", request.data)  # Debugging output
+
         serializer = ProductSerializer(product, data=request.data)
+        
         if serializer.is_valid():
+            print("entry in put")
             serializer.save()
             return Response(serializer.data)
+        print("Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
