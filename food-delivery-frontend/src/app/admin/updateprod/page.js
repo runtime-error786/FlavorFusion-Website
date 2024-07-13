@@ -70,11 +70,18 @@ const AdminTable = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+    
+        // Ensure only non-negative numbers are entered for price and quantity
+        if ((name === 'price' || name === 'quantity') && parseFloat(value) < 0) {
+            return; // Do not update state if the value is negative
+        }
+    
         setSelectedProduct({
             ...selectedProduct,
             [name]: value
         });
     };
+    
 
     return (
         <>

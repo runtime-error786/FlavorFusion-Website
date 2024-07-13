@@ -268,16 +268,7 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
 
-                        <ListItem disablePadding component="a" href="/track-order" sx={{ color: 'gray' }}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <TrackChangesIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Track Order" />
-                            </ListItemButton>
-                        </ListItem>
-
-                        <ListItem disablePadding component="a" href="/dashboard" sx={{ color: 'gray' }}>
+                        <ListItem disablePadding component="a" href="/admin/dashboard" sx={{ color: 'gray' }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <DashboardIcon />
