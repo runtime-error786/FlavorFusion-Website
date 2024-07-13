@@ -11,6 +11,7 @@ from make_admin.views import create_admin_user
 from products.views import product_list_create,product_detail
 from signout.views import sign_out
 from deladmin.views import DeleteAdminView
+from sale.views import admin_count, customer_count, category_product_qty_sum, customer_count_by_country, total_profit
 
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
@@ -32,5 +33,9 @@ urlpatterns = [
     path('sign_out/', sign_out, name='sign_out'),
     path('', include(router1.urls)),
     path('signup/delete-admin/<int:pk>/', DeleteAdminView.as_view(), name='delete_admin'),  # New URL pattern
-
+    path('admincount', admin_count, name='admin-count'),
+    path('customercount', customer_count, name='customer-count'),
+    path('CategoryProductQtySum', category_product_qty_sum, name='category-product-qty-sum'),
+    path('CustomerCountByCountry', customer_count_by_country, name='customer-count-by-country'),
+    path('profit', total_profit, name='total-profit'),
 ]

@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import make_password
 
 class CustomUserDB(AbstractUser):
     email = models.EmailField(unique=True)  # Email as primary key
-    country = models.CharField(max_length=120)
+    country = models.CharField(max_length=120, default='USA')  # Setting default value to 'USA'
     picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     # Custom related_name to resolve clashes
