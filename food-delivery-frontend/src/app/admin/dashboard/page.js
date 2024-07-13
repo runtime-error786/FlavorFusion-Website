@@ -21,11 +21,11 @@ const Graph = () => {
   const fetchData = async () => {
     try {
       console.log("Fetching data...");
-      const adminResponse = await axios.get('http://localhost:2001/admincount', { withCredentials: true });
-      const customerResponse = await axios.get('http://localhost:2001/customercount', { withCredentials: true });
-      const categoryProductQtySumResponse = await axios.get('http://localhost:2001/CategoryProductQtySum', { withCredentials: true });
-      const customerWithCountryResponse = await axios.get('http://localhost:2001/CustomerCountByCountry', { withCredentials: true });
-      const sales = await axios.get('http://localhost:2001/profit', { withCredentials: true });
+      const adminResponse = await axios.get('http://localhost:8001/admincount', { withCredentials: true });
+      const customerResponse = await axios.get('http://localhost:8001/customercount', { withCredentials: true });
+      const categoryProductQtySumResponse = await axios.get('http://localhost:8001/CategoryProductQtySum', { withCredentials: true });
+      const customerWithCountryResponse = await axios.get('http://localhost:8001/CustomerCountByCountry', { withCredentials: true });
+      const sales = await axios.get('http://localhost:8001/profit', { withCredentials: true });
 
       setAdminCount(adminResponse.data.adminCount);
       setCustomerCount(customerResponse.data.customerCount);
