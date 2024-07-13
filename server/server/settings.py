@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'make_admin',
     'products',
     'django_filters',
-    'deladmin'
+    'deladmin',
+    'sale',
+    'Profile'
 ]
 
 MIDDLEWARE = [
@@ -189,3 +191,4 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',  # Enables Django Filter support
     ],
 }
+

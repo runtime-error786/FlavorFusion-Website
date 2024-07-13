@@ -12,7 +12,7 @@ from products.views import product_list_create,product_detail
 from signout.views import sign_out
 from deladmin.views import DeleteAdminView
 from sale.views import admin_count, customer_count, category_product_qty_sum, customer_count_by_country, total_profit
-
+from Profile.views import Show_profile,update_profile
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
 
@@ -38,4 +38,6 @@ urlpatterns = [
     path('CategoryProductQtySum', category_product_qty_sum, name='category-product-qty-sum'),
     path('CustomerCountByCountry', customer_count_by_country, name='customer-count-by-country'),
     path('profit', total_profit, name='total-profit'),
+    path('showprofile/', Show_profile, name='show-profile'),
+    path('upprofile/', update_profile, name='update-profile'),
 ]
