@@ -1,0 +1,38 @@
+.custom-navbar {
+    background-color: #ffb703;
+}
+
+.custom-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px; /* Add margin to the right for spacing */
+}
+
+.profile-icon {
+    margin-right: 15px; /* Add margin to the right for spacing */
+}
+
+.custom-offcanvas {
+    background-color: #ffb703;
+}
+
+.custom-dropdown {
+    background-color: #ffb703;
+}
+
+.custom-search-btn {
+    background-color: #000000; /* Set background to black */
+    color: #ffffff; /* Set text color to white */
+    border: none;
+}
+
+.custom-search-btn:hover {
+    background-color: #333333; /* Darker shade for hover effect */
+    color: #ffffff; /* Ensure text color remains white */
+}

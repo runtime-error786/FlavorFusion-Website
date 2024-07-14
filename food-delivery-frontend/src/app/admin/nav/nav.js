@@ -27,7 +27,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';  // Updated import
 
 const drawerWidth = 240;
 
@@ -129,7 +129,7 @@ export default function PersistentDrawerLeft() {
                 const response = await axios.get('http://localhost:8001/img/', {
                     withCredentials: true // Include credentials if needed for authentication
                 });
-
+                
                 if (response.status === 200) {
                     if (response.data.image_url) {
                         setImageURL(response.data.image_url);
@@ -145,22 +145,21 @@ export default function PersistentDrawerLeft() {
                 console.error('Error fetching user image:', error);
             }
         };
-
+        
         fetchUserImage();
     }, []);
-
-
+    
     const handleProfileClick = () => {
-        // Redirect to profile page logic here
         console.log('Redirecting to profile page');
+        router.push('/admin/profile');
     };
-
+    
     const handleSignOut = async () => {
         try {
             const response = await axios.post('http://localhost:8001/sign_out/', {}, {
                 withCredentials: true // Include credentials if needed for authentication
             });
-
+            
             if (response.status === 200) {
                 // Handle successful sign out, e.g., redirect to login page
                 console.log('Sign out successful');
@@ -172,7 +171,8 @@ export default function PersistentDrawerLeft() {
             console.error('Error signing out:', error);
         }
     };
-
+    
+    
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ display: 'flex' }}>
@@ -190,17 +190,19 @@ export default function PersistentDrawerLeft() {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="h6" noWrap component="div">
-                            FlavorFusion
+                                FlavorFusion
                             </Typography>
                         </Box>
-                        <IconButton
-                            color="inherit"
-                            aria-label="profile"
-                            onClick={handleProfileClick}
-                            sx={{ ml: 2 }}
-                        >
-                            <img src={imageURL} alt="User Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                        </IconButton>
+                        {router.pathname !== '/admin/profile' && (  // Conditionally render the profile image
+                            <IconButton
+                                color="inherit"
+                                aria-label="profile"
+                                onClick={handleProfileClick}
+                                sx={{ ml: 2 }}
+                            >
+                                <img src={imageURL} alt="User Profile" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                            </IconButton>
+                        )}
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -268,6 +270,7 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
 
+
                         <ListItem disablePadding component="a" href="/admin/dashboard" sx={{ color: 'gray' }}>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -277,8 +280,17 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
 
-                        <ListItem disablePadding sx={{ color: 'gray' }}>
-                            <ListItemButton onClick={handleSignOut}>
+                        <ListItem disablePadding component="a" href="/admin/profile" sx={{ color: 'gray' }}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <AccountCircleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Profile" />
+                            </ListItemButton>
+                        </ListItem>
+
+                        <ListItem disablePadding onClick={handleSignOut} sx={{ color: 'gray' }}>
+                            <ListItemButton>
                                 <ListItemIcon>
                                     <LogoutIcon />
                                 </ListItemIcon>
@@ -286,9 +298,11 @@ export default function PersistentDrawerLeft() {
                             </ListItemButton>
                         </ListItem>
                     </List>
+                    <Divider />
                 </Drawer>
                 <Main open={open}>
                     <DrawerHeader />
+                    {/* Add the main content of the page here */}
                 </Main>
             </Box>
         </ThemeProvider>
