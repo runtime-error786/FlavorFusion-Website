@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'deladmin',
     'sale',
     'Profile',
-    'like'
+    'like',
+    'carti'
 ]
 
 MIDDLEWARE = [

@@ -9,6 +9,8 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from like.views import Like
+from carti.views import CartItems
+
 class ProductPagination(PageNumberPagination):
     page_size = 10  # Number of records per page
     page_size_query_param = 'page_size'
@@ -157,3 +159,37 @@ def product_get(request):
             'total_pages': 1,  # If no pagination, there is only one page
             'total_products': total_products
         }, status=status.HTTP_200_OK)
+        
+@api_view(['GET', 'PUT', 'DELETE'])
+@authentication_classes([CustomJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def product_detail1(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        # Check if the product is in the user's cart
+        try:
+            cart_item = CartItems.objects.get(product_id=pk, user=request.user)
+            cart_qty = cart_item.cart_qty
+        except CartItems.DoesNotExist:
+            cart_qty = 0
+
+        # Serialize the product along with cartQty
+        serializer = ProductSerializer(product)
+        response_data = serializer.data
+        response_data['cartQty'] = cart_qty  # Add cartQty to the response data
+        return Response(response_data)
+
+    elif request.method == 'PUT':
+        serializer = ProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

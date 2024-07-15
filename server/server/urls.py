@@ -8,7 +8,7 @@ from forgot_pass.views import update_password
 from Get_role.views import auth_view
 from get_pic.views import get_user_image
 from make_admin.views import create_admin_user
-from products.views import product_list_create,product_detail,product_get
+from products.views import product_list_create,product_detail,product_detail1,product_get
 from signout.views import sign_out
 from deladmin.views import DeleteAdminView
 from sale.views import admin_count, customer_count, category_product_qty_sum, customer_count_by_country, total_profit
@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 router1 = DefaultRouter()
 router1.register(r'users', CustomUserViewSet)
 from like.views import like_product
+from carti.views import add_to_cart
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('otp/', send_otp, name='generate-otp'),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('create_admin/', create_admin_user, name='create_admin_user'),
     path('products/', product_list_create, name='product-list-create'),
     path('products/<int:pk>/', product_detail, name='product-detail'),
+    path('products1/<int:pk>/', product_detail1, name='product-detail'),
     path('sign_out/', sign_out, name='sign_out'),
     path('', include(router1.urls)),
     path('signup/delete-admin/<int:pk>/', DeleteAdminView.as_view(), name='delete_admin'),  # New URL pattern
@@ -44,5 +46,6 @@ urlpatterns = [
     path('upprofile/', update_profile, name='update-profile'),
     path('products_get/', product_get , name='product-list-create'),
     path('like_product/', like_product, name='like_product'),
+    path('addtocart/', add_to_cart, name='addtocart'),
 ]
 
