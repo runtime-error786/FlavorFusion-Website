@@ -8,16 +8,18 @@ from forgot_pass.views import update_password
 from Get_role.views import auth_view
 from get_pic.views import get_user_image
 from make_admin.views import create_admin_user
-from products.views import product_list_create,product_detail
+from products.views import product_list_create,product_detail,product_get
 from signout.views import sign_out
 from deladmin.views import DeleteAdminView
 from sale.views import admin_count, customer_count, category_product_qty_sum, customer_count_by_country, total_profit
 from Profile.views import Show_profile,update_profile
 router = DefaultRouter()
 router.register(r'signup', CustomUserViewSet, basename='signup')
-
+from django.conf import settings
+from django.conf.urls.static import static
 router1 = DefaultRouter()
 router1.register(r'users', CustomUserViewSet)
+from like.views import like_product
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('otp/', send_otp, name='generate-otp'),
@@ -40,4 +42,7 @@ urlpatterns = [
     path('profit', total_profit, name='total-profit'),
     path('showprofile/', Show_profile, name='show-profile'),
     path('upprofile/', update_profile, name='update-profile'),
+    path('products_get/', product_get , name='product-list-create'),
+    path('like_product/', like_product, name='like_product'),
 ]
+

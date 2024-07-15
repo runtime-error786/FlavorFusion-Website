@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-
+from like.views import Like
 class ProductPagination(PageNumberPagination):
     page_size = 10  # Number of records per page
     page_size_query_param = 'page_size'
@@ -94,3 +94,66 @@ def product_detail(request, pk):
     elif request.method == 'DELETE':
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@authentication_classes([CustomJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def product_get(request):
+    if request.method == 'GET':
+        sort = request.query_params.get('sort', 'true').lower()
+        category_param = request.query_params.get('Category', None)
+        name_param = request.query_params.get('search', None)
+        
+        queryset = Product.objects.all()
+        
+        # Apply name filtering if provided in query params
+        if name_param:
+            queryset = queryset.filter(name__icontains=name_param)
+        
+        # Apply category filtering if provided in query params and not 'all'
+        if category_param and category_param.lower() != 'all':
+            queryset = queryset.filter(category__icontains=category_param)
+        
+        # Apply sorting based on sort parameter
+        if sort == 'true':
+            queryset = queryset.order_by('price')
+        else:
+            queryset = queryset.order_by('-price')
+        
+        # Count total products before pagination
+        total_products = queryset.count()
+        
+        # Pagination
+        paginator = ProductPagination()
+        page = paginator.paginate_queryset(queryset, request)
+        if page is not None:
+            serializer = ProductSerializer(page, many=True)
+            product_data = serializer.data
+
+            # Check if each product is liked by the user
+            for product in product_data:
+                product_id = product['id']
+                is_liked = Like.objects.filter(user=request.user, product_id=product_id).exists()
+                product['like'] = is_liked
+
+            total_pages = (total_products + paginator.page_size - 1) // paginator.page_size
+            return paginator.get_paginated_response({
+                'data': product_data,
+                'total_pages': total_pages,
+                'total_products': total_products
+            })
+
+        serializer = ProductSerializer(queryset, many=True)
+        product_data = serializer.data
+
+        # Check if each product is liked by the user
+        for product in product_data:
+            product_id = product['id']
+            is_liked = Like.objects.filter(user=request.user, product_id=product_id).exists()
+            product['like'] = is_liked
+
+        return Response({
+            'data': product_data,
+            'total_pages': 1,  # If no pagination, there is only one page
+            'total_products': total_products
+        }, status=status.HTTP_200_OK)

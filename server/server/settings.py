@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django_filters',
     'deladmin',
     'sale',
-    'Profile'
+    'Profile',
+    'like'
 ]
 
 MIDDLEWARE = [
