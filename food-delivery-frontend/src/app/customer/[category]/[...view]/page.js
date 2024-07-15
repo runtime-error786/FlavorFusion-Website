@@ -19,7 +19,7 @@ const ProductDetails = ({ params }) => {
     const fetchProduct = async () => {
         try {
             
-            const response = await axios.get(`http://localhost:8001/products/${params.view}`, {
+            const response = await axios.get(`http://localhost:8001/products1/${params.view}`, {
                
                 withCredentials: true
             });
@@ -44,7 +44,8 @@ const ProductDetails = ({ params }) => {
 
     const addToCart = async (productId, quantity) => {
         try {
-            let response = await axios.post('http://localhost:2001/addtocart', { productId, quantity }, {
+            console.log("call before",productId)
+            let response = await axios.post('http://localhost:8001/addtocart/', { productId, quantity }, {
                 withCredentials: true
             });
             await fetchProduct();
@@ -105,7 +106,7 @@ const ProductDetails = ({ params }) => {
                         {product.cartQty > 0 ? (
                             <button id='j1'  onClick={() => addToCart(product.id, quantity)} disabled={product.quantity <product.cartQty  || quantity <= 0} className={(quantity <= 0 || product.quantity <quantity)  ? "button-add-to-cart disabled" : "button-add-to-cart"}>Add to Cart</button>
                         ) : (
-                            <button id='j1' onClick={() => { addToCart(params.prod, quantity) }} disabled={product.quantity <product.cartQty  || quantity <= 0} className={(quantity <= 0 || product.quantity <quantity)  ? "button-add-to-cart disabled" : "button-add-to-cart"}>Add to Cart</button>
+                            <button id='j1' onClick={() => { addToCart(product.id, quantity) }} disabled={product.quantity <product.cartQty  || quantity <= 0} className={(quantity <= 0 || product.quantity <quantity)  ? "button-add-to-cart disabled" : "button-add-to-cart"}>Add to Cart</button>
                         )}
                     </div>
                 </div>

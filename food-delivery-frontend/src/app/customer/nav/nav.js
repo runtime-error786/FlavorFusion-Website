@@ -59,18 +59,18 @@ const CustomNavbar = () => {
                         </form>
                         <ul className="navbar-nav flex-grow-1">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="all">Home</a>
+                                <a className="nav-link active" aria-current="page" href="/customer/all">Home</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
                                 </a>
                                 <ul className="dropdown-menu" style={{ backgroundColor: '#ffb703' }}>
-                                    <li><a className="dropdown-item" href="Burger">Burger</a></li>
-                                    <li><a className="dropdown-item" href="Pasta">Pasta</a></li>
-                                    <li><a className="dropdown-item" href="Pizza">Pizza</a></li>
-                                    <li><a className="dropdown-item" href="Sandwich">Sandwich</a></li>
-                                    <li><a className="dropdown-item" href="Dessert">Dessert</a></li>
+                                    <li><a className="dropdown-item" href="/customer/Burger">Burger</a></li>
+                                    <li><a className="dropdown-item" href="/customer/Pasta">Pasta</a></li>
+                                    <li><a className="dropdown-item" href="/customer/Pizza">Pizza</a></li>
+                                    <li><a className="dropdown-item" href="/customer/Sandwich">Sandwich</a></li>
+                                    <li><a className="dropdown-item" href="/customer/Dessert">Dessert</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item">

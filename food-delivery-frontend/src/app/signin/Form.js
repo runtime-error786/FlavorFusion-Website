@@ -172,7 +172,7 @@ const Form = () => {
 
                 await dispatch(Auth_direct("Customer"));
                 console.log("hw");
-                route.push("/customer/");
+                route.push("/customer/all");
 
 
             }
@@ -290,7 +290,7 @@ const Form = () => {
             toast.success("sign in successful");
             await dispatch(Auth_direct("Customer"));
             console.log("hw");
-            route.push("/customer");
+            route.push("/customer/all");
         } catch (error) {
             console.error('Failed to sign in:');
             toast.error("Enter correct credentials");

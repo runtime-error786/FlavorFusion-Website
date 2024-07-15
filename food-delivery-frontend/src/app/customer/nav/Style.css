@@ -40,3 +40,26 @@
 a{
     color: #000000;
 }
+
+
+/* Dropdown menu style */
+.dropdown-menu {
+    background-color: #ffb703;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu a {
+    color: #333;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f5a623;
+    color: #fff;
+}
+
+
