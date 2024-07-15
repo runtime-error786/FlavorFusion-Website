@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
   return (
     <>
     <CustomNavbar></CustomNavbar>
-    <Ban></Ban>
+    {/* <Ban></Ban> */}
     {children}
     </>
   );

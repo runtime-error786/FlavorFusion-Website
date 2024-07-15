@@ -5,10 +5,16 @@ import './Style.css'; // Import the custom CSS file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchAction } from "@/Redux/Action";
 const CustomNavbar = () => {
     const [imageURL, setImageURL] = useState(null);
+    const searchUser = useSelector((state) => state.SearchUser);
+    const dispatch = useDispatch();
 
+    const setSearchTerm = (e) => {
+        dispatch(SearchAction(e.target.value));
+    };
     useEffect(() => {
         const fetchUserImage = async () => {
             try {
@@ -49,24 +55,22 @@ const CustomNavbar = () => {
                     </div>
                     <div className="offcanvas-body d-flex flex-column align-items-center">
                         <form className="d-flex mb-3 w-100" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn bg-dark text-white" type="submit">Search</button>
-
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"  value={searchUser} onChange={setSearchTerm} />
                         </form>
                         <ul className="navbar-nav flex-grow-1">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                                <a className="nav-link active" aria-current="page" href="all">Home</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
                                 </a>
                                 <ul className="dropdown-menu" style={{ backgroundColor: '#ffb703' }}>
-                                    <li><a className="dropdown-item" href="#">Burger</a></li>
-                                    <li><a className="dropdown-item" href="#">Pasta</a></li>
-                                    <li><a className="dropdown-item" href="#">Pizza</a></li>
-                                    <li><a className="dropdown-item" href="#">Drink</a></li>
-                                    <li><a className="dropdown-item" href="#">Others</a></li>
+                                    <li><a className="dropdown-item" href="Burger">Burger</a></li>
+                                    <li><a className="dropdown-item" href="Pasta">Pasta</a></li>
+                                    <li><a className="dropdown-item" href="Pizza">Pizza</a></li>
+                                    <li><a className="dropdown-item" href="Sandwich">Sandwich</a></li>
+                                    <li><a className="dropdown-item" href="Dessert">Dessert</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item">

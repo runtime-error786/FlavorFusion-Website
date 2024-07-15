@@ -129,3 +129,35 @@ export const ShowAllUser1 = (SearchUser, SortUser, currentPage) => {
       }
   };
 };
+
+export const ShowAllUser2 = (SearchUser, SortUser, currentPage,Category) => {
+  return async (dispatch) => {
+      try {
+          const url = `http://localhost:8001/products_get/`;
+          const response = await axios.get(url, {
+              params: {
+                  search: SearchUser,
+                  sort: SortUser,
+                  page: currentPage,
+                  Category:Category
+              },
+              withCredentials: true
+          });
+          console.log(response)
+          // const { data, totalPages } = response.data; 
+          const data = response.data.results.data; 
+          const totalPages = response.data.results.total_pages;
+          dispatch({
+              type: "Record",
+              payload: data 
+          });
+
+          dispatch({
+              type: "TOTAL_PAGE",
+              payload: totalPages 
+          });
+      } catch (error) {
+        toast.error("Your session expire.Please Sign out & Sign in again");
+      }
+  };
+};
