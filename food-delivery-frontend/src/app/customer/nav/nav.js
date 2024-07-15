@@ -36,28 +36,24 @@ const CustomNavbar = () => {
     }, []);
 
     return (
-        <nav className="navbar fixed-top custom-navbar">
+        <nav className="navbar fixed-top" style={{ backgroundColor: '#ffb703' }}>
             <div className="container-fluid">
                 <a className="navbar-brand custom-brand" href="#">Flavour Fusion</a>
-                <div className="d-flex align-items-center">
-                    <a className="nav-link" href="#">
-                        {imageURL ? (
-                            <img src={imageURL} alt="User Profile" className="profile-img" />
-                        ) : (
-                            <FontAwesomeIcon icon={faUserCircle} size="2x" className="profile-icon" />
-                        )}
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div className="offcanvas offcanvas-end custom-offcanvas" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" style={{ backgroundColor: '#ffb703' }}>
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title custom-brand" id="offcanvasDarkNavbarLabel">Flavour Fusion</h5>
                         <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div className="offcanvas-body">
-                        <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <div className="offcanvas-body d-flex flex-column align-items-center">
+                        <form className="d-flex mb-3 w-100" role="search">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                            <button className="btn bg-dark text-white" type="submit">Search</button>
+
+                        </form>
+                        <ul className="navbar-nav flex-grow-1">
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
@@ -65,7 +61,7 @@ const CustomNavbar = () => {
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
                                 </a>
-                                <ul className="dropdown-menu custom-dropdown">
+                                <ul className="dropdown-menu" style={{ backgroundColor: '#ffb703' }}>
                                     <li><a className="dropdown-item" href="#">Burger</a></li>
                                     <li><a className="dropdown-item" href="#">Pasta</a></li>
                                     <li><a className="dropdown-item" href="#">Pizza</a></li>
@@ -76,14 +72,15 @@ const CustomNavbar = () => {
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Cart</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Sign Out</a>
-                            </li>
                         </ul>
-                        <form className="d-flex mt-3" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-success custom-search-btn" type="submit">Search</button>
-                        </form>
+                        <div className="d-flex flex-column align-items-center mt-auto mb-3">
+                            {imageURL ? (
+                                <img src={imageURL} alt="User Profile" className="profile-img" />
+                            ) : (
+                                <FontAwesomeIcon icon={faUserCircle} size="2x" className="profile-icon" />
+                            )}
+                            <a className="nav-link mt-2" href="#">Sign Out</a>
+                        </div>
                     </div>
                 </div>
             </div>

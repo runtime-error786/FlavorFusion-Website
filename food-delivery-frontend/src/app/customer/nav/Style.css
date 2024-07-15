@@ -36,3 +36,7 @@
     background-color: #333333; /* Darker shade for hover effect */
     color: #ffffff; /* Ensure text color remains white */
 }
+
+a{
+    color: #000000;
+}
