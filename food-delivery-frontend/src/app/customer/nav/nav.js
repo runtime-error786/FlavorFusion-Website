@@ -37,7 +37,7 @@ const CustomNavbar = () => {
 
     return (
         <nav className="navbar fixed-top" style={{ backgroundColor: '#ffb703' }}>
-            <div className="container-fluid">
+            <div className="container">
                 <a className="navbar-brand custom-brand" href="#">Flavour Fusion</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
