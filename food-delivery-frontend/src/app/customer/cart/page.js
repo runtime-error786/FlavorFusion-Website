@@ -87,7 +87,7 @@ const Cart = ({ params }) => {
   };
 
   const removeItem = async (productId) => {
-    await axios.delete('http://localhost:2001/removecart', {
+    await axios.delete('http://localhost:8001/removecart', {
       data: { productId },
       withCredentials: true
     })
@@ -200,7 +200,7 @@ const Cart = ({ params }) => {
                 </td>
                 <td>${item.price * item.cart_qty}</td>
                 <td>
-                  <button className="remove-button" onClick={() => removeItem(item.id)}>Remove</button>
+                  <button className="remove-button" onClick={() => removeItem(item.product_id)}>Remove</button>
                 </td>
               </tr>
             ))}
