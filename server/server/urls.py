@@ -21,7 +21,7 @@ router1 = DefaultRouter()
 router1.register(r'users', CustomUserViewSet)
 from like.views import like_product
 from carti.views import add_to_cart
-from carti.views import show_cart,update_cart
+from carti.views import show_cart,update_cart,remove_cart_item
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('otp/', send_otp, name='generate-otp'),
@@ -50,6 +50,7 @@ urlpatterns = [
     path('addtocart/', add_to_cart, name='addtocart'),
     path('showcart/', show_cart, name='show_cart'),
     path('updatecart/', update_cart, name='update_cart'),
+    path('removecart/', remove_cart_item, name='update_cart'),
 
 ]
 

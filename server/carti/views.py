@@ -92,3 +92,18 @@ def update_cart(request):
     cart_item.save()
 
     return Response({'message': 'Cart item updated successfully'})
+
+@api_view(['DELETE'])
+@authentication_classes([CustomJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def remove_cart_item(request):
+    user = request.user
+    product_id = request.data.get('productId')
+    print(user,product_id)
+    # Get the cart item object if it exists
+    cart_item = get_object_or_404(CartItems, user=user, product_id=product_id)
+
+    # Delete the cart item
+    cart_item.delete()
+
+    return Response({'message': 'Cart item removed successfully'})
