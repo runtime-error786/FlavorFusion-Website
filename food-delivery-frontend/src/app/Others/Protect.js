@@ -51,7 +51,7 @@ const Protect = ({ children }) => {
         console.log("customer role")
 
         if (
-            router.startsWith("/customer") ||
+            router.startsWith("/customer") || router.startsWith("/customer/cart") ||
             router==="/error"
         ) {
             return <>{children}</>;

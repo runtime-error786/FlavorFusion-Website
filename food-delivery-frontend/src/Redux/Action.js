@@ -161,3 +161,81 @@ export const ShowAllUser2 = (SearchUser, SortUser, currentPage,Category) => {
       }
   };
 };
+
+
+export const Showcart = () => {
+  return async (dispatch) => {
+    try {
+      const url = `http://localhost:8001/showcart`;
+      const response = await axios.get(url, {
+        withCredentials: true
+      });
+      console.log(response)
+      const cartItems = response.data.cartItems;
+      const totalPrice = response.data.totalPrice.toString();
+
+      if (cartItems.length === 0) {
+        // If cart is empty, dispatch IsOutOfStock with true
+        dispatch({
+          type: "IsOutOfStock",
+          payload: true
+        });
+      } else {
+        // Check if any original quantity is less than the product quantity
+        const anyOutOfStock = cartItems.some(item => item.original_qty < item.cart_qty);
+        dispatch({
+          type: "IsOutOfStock",
+          payload: anyOutOfStock
+        });
+      }
+
+      dispatch({
+        type: "Record",
+        payload: cartItems
+      });
+
+      dispatch({
+        type: "Price",
+        payload: totalPrice
+      });
+
+    } catch (error) {
+      toast.error("Your session expired. Please sign out and sign in again.");
+    }
+  };
+};
+
+export const Cart_total_price = (val) => {
+  return  (dispatch) => {
+    dispatch({
+      type: "price",
+      payload: val
+  });
+  };
+};
+
+export const Checkout_show = (val) => {
+  return  (dispatch) => {
+    dispatch({
+      type: "IsOutOfStock",
+      payload: val
+  });
+  };
+};
+
+export const cart_count = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:2001/cartcount', {
+        withCredentials: true
+      });
+      const cartCount = response.data.cartCount;
+      dispatch({
+        type: "cart_count",
+        payload: cartCount
+      });
+    } catch (error) {
+      toast.error("Your session expire.Please Sign out & Sign in again");
+    }
+  };
+};

@@ -53,5 +53,30 @@ const initialState = {
     }
 }
 
-  export { Rol, Next, Totalpage, SearchUser, SortUser ,Record};
+let Price = (state = "", action) => {
+  if (action.type === "Price") {
+      console.log(action.payload)
+      return action.payload;
+  }
+  return state;
+}
+
+
+let Cart_length = (state = 0, action) => {
+  if (action.type === "cart_count") {
+      console.log(action.payload)
+      return action.payload;
+  }
+  return state;
+}
+
+let checkbtn = (state = false, action) => {
+  if (action.type === "IsOutOfStock") {
+      console.log(action.payload)
+      return action.payload;
+  }
+  return state;
+}
+
+export { Rol, Next, Totalpage, SearchUser, SortUser ,Record,Price,checkbtn,Cart_length};
   

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { Rol, Next, Totalpage, SearchUser, SortUser,Record } from './Reducer';
+import { Rol, Next, Totalpage, SearchUser, SortUser,Record,Price,checkbtn,Cart_length } from './Reducer';
 
 const Root = combineReducers({
     Rol,
@@ -7,7 +7,10 @@ const Root = combineReducers({
     Totalpage,
     SearchUser,
     SortUser,
-    Record
+    Record,
+    Price,
+    checkbtn,
+    Cart_length
   });
   
 export { Root };
