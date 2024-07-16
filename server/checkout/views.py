@@ -10,6 +10,7 @@ from server.JWT import CustomJWTAuthentication  # Replace with the actual path t
 import stripe
 from carti.models import CartItems  # Import your CartItem model from your app
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -63,18 +64,48 @@ def create_checkout_session(request):
 @permission_classes([IsAuthenticated])
 def clear_cart_items(request):
     try:
-        print("webhook api call---------------------------------------------------- ")
         user = request.user
-        # Delete all cart items for the authenticated user
-        CartItems.objects.filter(user=user).delete()
+        cart_items = CartItems.objects.filter(user=user)
+        
+        if not cart_items.exists():
+            return Response({'message': 'No items in the cart to clear'}, status=status.HTTP_200_OK)
 
-        return Response({'message': 'Cart items deleted successfully'}, status=status.HTTP_200_OK)
+        # Calculate grand total
+        grand_total = sum(item.cart_qty * item.product.price for item in cart_items)
+
+        # Email content
+        email_subject = 'Your Purchase Bill'
+        email_body = (
+            f"Hello {user.username},\n\n"
+            f"Here is the total amount for your purchase:\n\n"
+            f"Grand Total: ${grand_total:.2f}\n\n"
+            "Thank you for your purchase!\n\n"
+            "Best wishes,\n"
+            "[Flavour Fusion]"
+        )
+
+        # Send email
+        send_mail(
+            email_subject,
+            email_body,
+            'mustafa782a@gmail.com',  # Replace with your actual sender email
+            [user.email],
+            fail_silently=False,
+        )
+
+        # Subtract cart quantity from product quantity
+        for item in cart_items:
+            product = item.product
+            product.quantity -= item.cart_qty
+            product.save()
+
+        # Clear cart items
+        cart_items.delete()
+
+        return Response({'message': 'Cart items deleted successfully, email sent, and product quantities updated'}, status=status.HTTP_200_OK)
 
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    
-
 
 @api_view(['POST'])
 @authentication_classes([CustomJWTAuthentication])
