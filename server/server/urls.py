@@ -22,6 +22,8 @@ router1.register(r'users', CustomUserViewSet)
 from like.views import like_product
 from carti.views import add_to_cart
 from carti.views import show_cart,update_cart,remove_cart_item
+from checkout.views import create_checkout_session,clear_cart_items,verify_payment
+
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('otp/', send_otp, name='generate-otp'),
@@ -51,6 +53,9 @@ urlpatterns = [
     path('showcart/', show_cart, name='show_cart'),
     path('updatecart/', update_cart, name='update_cart'),
     path('removecart/', remove_cart_item, name='update_cart'),
+    path('createcheckoutsession/', create_checkout_session, name='create-checkout-session'),
+    path('cartdel/', clear_cart_items, name='checkout_webhook'),
+    path('verifypay/', verify_payment, name='verify'),
 
 ]
 

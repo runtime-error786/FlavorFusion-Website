@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'sale',
     'Profile',
     'like',
-    'carti'
+    'carti',
+    'checkout'
 ]
 
 MIDDLEWARE = [
@@ -194,3 +195,8 @@ REST_FRAMEWORK = {
     ],
 }
 
+STRIPE_SECRET_KEY = 'sk_test_51P0cjlP8GjJIjxDGImARCejVPE9OLerJ3u7UXMefovycp8Qv9Bmu3SpjI3QZ3BMuN6SumxxjM1wz8qgwHxiJ3f0c00gSSeHG7P'
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51P0cjlP8GjJIjxDGEgyDXqRqhQThEMQl5KySJ1F7bhigoblE6MDvutJnx3n7LlTQx3HiA3zL9xYhnGwHTba03QpR00JWEq159G'
+
+SITE_URL = 'http://localhost:3000'  # your frontend URL
