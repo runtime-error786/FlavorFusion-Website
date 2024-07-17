@@ -11,7 +11,7 @@ import stripe
 from carti.models import CartItems  # Import your CartItem model from your app
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
-
+from signup.models import CustomUserDB
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @api_view(['POST'])
@@ -93,11 +93,33 @@ def clear_cart_items(request):
             fail_silently=False,
         )
 
-        # Subtract cart quantity from product quantity
+        # Dictionary to store notifications for each user
+        notifications = {}
+        # Set to store all products with shortages
+        shortage_products = set()
+
+        # Notify other users whose cart quantities exceed the available product quantities
         for item in cart_items:
             product = item.product
             product.quantity -= item.cart_qty
             product.save()
+
+            # Check other users' cart items for this product
+            other_cart_items = CartItems.objects.filter(product=product).exclude(user=user)
+            for other_item in other_cart_items:
+                if other_item.cart_qty > product.quantity:
+                    if other_item.user.email not in notifications:
+                        notifications[other_item.user.email] = []
+                    notifications[other_item.user.email].append(product.name)
+                    shortage_products.add(product.name)
+
+        # Send notification emails to users
+        for email, products in notifications.items():
+            notify_user(email, products)
+
+        # Notify all admins about the shortage
+        if shortage_products:
+            notify_admins(shortage_products)
 
         # Clear cart items
         cart_items.delete()
@@ -107,6 +129,49 @@ def clear_cart_items(request):
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+def notify_user(email, products):
+    product_list = "\n".join(products)
+    email_subject = 'Product Quantity Update'
+    email_body = (
+        f"Hello,\n\n"
+        f"The quantities of the following products in your cart exceed the available stock:\n\n"
+        f"{product_list}\n\n"
+        "Please review your cart and make necessary adjustments.\n\n"
+        "Best regards,\n"
+        "[Flavour Fusion]"
+    )
+
+    # Send email
+    send_mail(
+        email_subject,
+        email_body,
+        'mustafa782a@gmail.com',  # Replace with your actual sender email
+        [email],
+        fail_silently=False,
+    )
+
+def notify_admins(shortage_products):
+    admin_emails = CustomUserDB.objects.filter(role=CustomUserDB.ROLE_ADMIN).values_list('email', flat=True)
+    product_list = "\n".join(shortage_products)
+    email_subject = 'Product Shortage Alert'
+    email_body = (
+        f"Hello Admin,\n\n"
+        f"The following products have shortages:\n\n"
+        f"{product_list}\n\n"
+        "Please take necessary actions to restock these items.\n\n"
+        "Best regards,\n"
+        "[Flavour Fusion]"
+    )
+
+    # Send email to all admins
+    send_mail(
+        email_subject,
+        email_body,
+        'mustafa782a@gmail.com',  # Replace with your actual sender email
+        admin_emails,
+        fail_silently=False,
+    )
+    
 @api_view(['POST'])
 @authentication_classes([CustomJWTAuthentication])
 @permission_classes([IsAuthenticated])
