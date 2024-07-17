@@ -8,7 +8,7 @@ from forgot_pass.views import update_password
 from Get_role.views import auth_view
 from get_pic.views import get_user_image
 from make_admin.views import create_admin_user
-from products.views import product_list_create,product_detail,product_detail1,product_get
+from products.views import product_list_create,product_detail,product_detail1,product_get,product_guest
 from signout.views import sign_out
 from deladmin.views import DeleteAdminView
 from sale.views import admin_count, customer_count, category_product_qty_sum, customer_count_by_country, total_profit
@@ -56,6 +56,7 @@ urlpatterns = [
     path('createcheckoutsession/', create_checkout_session, name='create-checkout-session'),
     path('cartdel/', clear_cart_items, name='checkout_webhook'),
     path('verifypay/', verify_payment, name='verify'),
+    path('products_guest/', product_guest, name='guest'),
 
 ]
 

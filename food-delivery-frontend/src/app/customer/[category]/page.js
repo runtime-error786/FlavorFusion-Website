@@ -25,7 +25,7 @@ const Home = ({ params }) => {
   const role = useSelector((state) => state.Rol);
   console.log(params)
   useEffect(() => {
-    dispatch(ShowAllUser2(SearchProd, SortProd, currentPage, params.category));
+    dispatch(ShowAllUser2(SearchProd, SortProd, currentPage, params.category,role));
   }, [SearchProd, SortProd, currentPage, params.category]);
 
   useEffect(() => {
@@ -70,7 +70,9 @@ const Home = ({ params }) => {
           <div className="container mb-3">
             <div className="row">
               <div style={{ textAlign: "end" }}>
+                { role !== "Guest" && 
                 <SortControls />
+                }
               </div>
             </div>
           </div>

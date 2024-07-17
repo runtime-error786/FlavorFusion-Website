@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -7,10 +8,12 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchAction } from "@/Redux/Action";
+
 const CustomNavbar = () => {
     const [imageURL, setImageURL] = useState(null);
     const searchUser = useSelector((state) => state.SearchUser);
     const dispatch = useDispatch();
+    const role = useSelector((state) => state.Rol);
 
     const setSearchTerm = (e) => {
         dispatch(SearchAction(e.target.value));
@@ -55,7 +58,7 @@ const CustomNavbar = () => {
                     </div>
                     <div className="offcanvas-body d-flex flex-column align-items-center">
                         <form className="d-flex mb-3 w-100" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"  value={searchUser} onChange={setSearchTerm} />
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={searchUser} onChange={setSearchTerm} />
                         </form>
                         <ul className="navbar-nav flex-grow-1">
                             <li className="nav-item">
@@ -73,18 +76,28 @@ const CustomNavbar = () => {
                                     <li><a className="dropdown-item" href="/customer/Dessert">Dessert</a></li>
                                 </ul>
                             </li>
+                            { role !== "Guest" && 
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Cart</a>
                             </li>
+                            }
                         </ul>
-                        <div className="d-flex flex-column align-items-center mt-auto mb-3">
-                            {imageURL ? (
-                                <img src={imageURL} alt="User Profile" className="profile-img" />
-                            ) : (
-                                <FontAwesomeIcon icon={faUserCircle} size="2x" className="profile-icon" />
-                            )}
-                            <a className="nav-link mt-2" href="#">Sign Out</a>
-                        </div>
+                        {role !== "Guest" &&
+                            <div className="d-flex flex-column align-items-center mt-auto mb-3">
+                                {imageURL ? (
+                                    <img src={imageURL} alt="User Profile" className="profile-img" />
+                                ) : (
+                                    <FontAwesomeIcon icon={faUserCircle} size="2x" className="profile-icon" />
+                                )}
+                                <a className="nav-link mt-2" href="#">Sign Out</a>
+                            </div>
+                        }
+
+                        {role == "Guest" &&
+                            <div className="d-flex flex-column align-items-center mt-auto mb-3">
+                                <a className="nav-link mt-2" href="/signin">Sign In</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

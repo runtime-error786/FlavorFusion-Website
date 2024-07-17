@@ -213,3 +213,53 @@ def product_detail1(request, pk):
     elif request.method == 'DELETE':
         product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+
+
+@api_view(['GET'])
+def product_guest(request):
+    if request.method == 'GET':
+        sort = request.query_params.get('sort', 'true').lower()
+        category_param = request.query_params.get('Category', None)
+        name_param = request.query_params.get('search', None)
+        
+        queryset = Product.objects.all()
+        
+        # Apply name filtering if provided in query params
+        if name_param:
+            queryset = queryset.filter(name__icontains=name_param)
+        
+        # Apply category filtering if provided in query params and not 'all'
+        if category_param and category_param.lower() != 'all':
+            queryset = queryset.filter(category__icontains=category_param)
+        
+        # Apply sorting based on sort parameter
+        if sort == 'true':
+            queryset = queryset.order_by('price')
+        else:
+            queryset = queryset.order_by('-price')
+        
+        # Count total products before pagination
+        total_products = queryset.count()
+        
+        # Pagination
+        paginator = ProductPagination()
+        page = paginator.paginate_queryset(queryset, request)
+        if page is not None:
+            serializer = ProductSerializer(page, many=True)
+            product_data = serializer.data
+            total_pages = (total_products + paginator.page_size - 1) // paginator.page_size  # Correct total_pages calculation
+            return paginator.get_paginated_response({
+                'data': product_data,
+                'total_pages': total_pages,
+                'total_products': total_products
+            })
+
+        serializer = ProductSerializer(queryset, many=True)
+        product_data = serializer.data
+        return Response({
+            'data': product_data,
+            'total_pages': 1,  # If no pagination, there is only one page
+            'total_products': total_products
+        }, status=status.HTTP_200_OK)

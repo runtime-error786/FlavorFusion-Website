@@ -64,7 +64,12 @@ const Protect = ({ children }) => {
         console.log("guest role")
 
         if (
-            router==="/guest" ||
+            router=="/customer/all" ||
+            router=="/customer/Burger" ||
+            router=="/customer/Pasta" ||
+            router=="/customer/Pizza" ||
+            router=="/customer/Sandwich" ||
+            router=="/customer/Dessert" ||
             router==="/error2" ||
             router==="/signin"
         ) {
