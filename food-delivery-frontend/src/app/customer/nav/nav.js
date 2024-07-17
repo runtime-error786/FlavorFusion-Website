@@ -8,12 +8,14 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchAction } from "@/Redux/Action";
+import { useRouter } from 'next/navigation';  // Updated import
 
 const CustomNavbar = () => {
     const [imageURL, setImageURL] = useState(null);
     const searchUser = useSelector((state) => state.SearchUser);
     const dispatch = useDispatch();
     const role = useSelector((state) => state.Rol);
+    const router = useRouter();
 
     const setSearchTerm = (e) => {
         dispatch(SearchAction(e.target.value));
@@ -43,6 +45,24 @@ const CustomNavbar = () => {
 
         fetchUserImage();
     }, []);
+
+    const handleSignOut = async () => {
+        try {
+            const response = await axios.post('http://localhost:8001/sign_out/', {}, {
+                withCredentials: true // Include credentials if needed for authentication
+            });
+
+            if (response.status === 200) {
+                // Handle successful sign out, e.g., redirect to login page
+                console.log('Sign out successful');
+                router.push('/signin'); // Redirect to guest page
+            } else {
+                console.error('Failed to sign out');
+            }
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    };
 
     return (
         <nav className="navbar fixed-top" style={{ backgroundColor: '#ffb703' }}>
@@ -76,28 +96,40 @@ const CustomNavbar = () => {
                                     <li><a className="dropdown-item" href="/customer/Dessert">Dessert</a></li>
                                 </ul>
                             </li>
-                            { role !== "Guest" && 
-                            <li className="nav-item">
-                                <a className="nav-link" href="/customer/cart">Cart</a>
-                            </li>
+                            {role !== "Guest" &&
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/customer/cart">Cart</a>
+                                </li>
                             }
                         </ul>
                         {role !== "Guest" &&
                             <div className="d-flex flex-column align-items-center mt-auto mb-3">
                                 {imageURL ? (
                                     <a href='/customer/profile'>
-                                    <img src={imageURL} alt="User Profile" className="profile-img" />
+                                        <img src={imageURL} alt="User Profile" className="profile-img" />
                                     </a>
                                 ) : (
                                     <FontAwesomeIcon icon={faUserCircle} size="2x" className="profile-icon" />
                                 )}
-                                <a className="nav-link mt-2" href="#">Sign Out</a>
+                                <div className="d-flex flex-column align-items-center mt-auto mb-3">
+                                    <a
+                                        className="nav-link mt-2"
+                                        onClick={(e) => {
+                                            e.preventDefault(); // Prevent default anchor behavior
+                                            handleSignOut(); // Call the sign out function
+                                        }}
+                                        role="button"
+                                        href="#"
+                                    >
+                                        Sign Out
+                                    </a>
+                                </div>
                             </div>
                         }
 
                         {role == "Guest" &&
                             <div className="d-flex flex-column align-items-center mt-auto mb-3">
-                                <a className="nav-link mt-2" href="/signin">Sign In</a>
+                                <a className="nav-link mt-2" onClick={handleSignOut}>Sign In</a>
                             </div>
                         }
                     </div>
