@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 router1 = DefaultRouter()
 router1.register(r'users', CustomUserViewSet)
 from like.views import like_product
-from carti.views import add_to_cart
+from carti.views import add_to_cart,cart_count_view
 from carti.views import show_cart,update_cart,remove_cart_item
 from checkout.views import create_checkout_session,clear_cart_items,verify_payment
 
@@ -57,6 +57,7 @@ urlpatterns = [
     path('cartdel/', clear_cart_items, name='checkout_webhook'),
     path('verifypay/', verify_payment, name='verify'),
     path('products_guest/', product_guest, name='guest'),
+    path('cartcount/', cart_count_view, name='cart_count_view'),
 
 ]
 

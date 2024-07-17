@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from products.models import Product
 from .Serializers import CartItemSerializer
 from rest_framework import status  # Import status module
+from django.http import JsonResponse
 
 @api_view(['POST'])
 @authentication_classes([CustomJWTAuthentication])
@@ -107,3 +108,11 @@ def remove_cart_item(request):
     cart_item.delete()
 
     return Response({'message': 'Cart item removed successfully'})
+
+@api_view(['GET'])
+@authentication_classes([CustomJWTAuthentication])
+@permission_classes([IsAuthenticated])
+def cart_count_view(request):
+    user = request.user
+    cart_count = CartItems.objects.filter(user=user).count()
+    return JsonResponse({'cartCount': cart_count})

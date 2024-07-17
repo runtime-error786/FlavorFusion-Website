@@ -63,3 +63,15 @@ a{
 }
 
 
+.cart-count {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.6em;
+    font-weight: bold;
+    margin-left: 0.5em;
+}
+
+.cart-count--overflow {
+    background-color: orange; /* Optional: Different color for 10+ */
+}

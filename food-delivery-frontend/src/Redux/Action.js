@@ -258,7 +258,7 @@ export const Checkout_show = (val) => {
 export const cart_count = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:2001/cartcount', {
+      const response = await axios.get('http://localhost:8001/cartcount', {
         withCredentials: true
       });
       const cartCount = response.data.cartCount;

@@ -16,6 +16,7 @@ const CustomNavbar = () => {
     const dispatch = useDispatch();
     const role = useSelector((state) => state.Rol);
     const router = useRouter();
+    const cart_len = useSelector((state) => state.Cart_length);
 
     const setSearchTerm = (e) => {
         dispatch(SearchAction(e.target.value));
@@ -98,9 +99,15 @@ const CustomNavbar = () => {
                             </li>
                             {role !== "Guest" &&
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/customer/cart">Cart</a>
+                                    <a className="nav-link" href="/customer/cart">
+                                        Cart
+                                        <span className={`cart-count ${cart_len > 10 ? 'cart-count--overflow' : ''}`}>
+                                            {cart_len > 10 ? '10+' : cart_len}
+                                        </span>
+                                    </a>
                                 </li>
                             }
+
                         </ul>
                         {role !== "Guest" &&
                             <div className="d-flex flex-column align-items-center mt-auto mb-3">
