@@ -10,6 +10,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from like.views import Like
 from carti.views import CartItems
+from django.core.mail import send_mail
+from products.models import Product
+from carti.models import CartItems
 
 class ProductPagination(PageNumberPagination):
     page_size = 10  # Number of records per page
@@ -94,9 +97,26 @@ def product_detail(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
+        # Query users who have this product in their cart
+        carts_with_product = CartItems.objects.filter(product_id=pk)
+        users_to_notify = set(cart.user for cart in carts_with_product)
+        
+        # Delete the product
         product.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        # Send email notifications
+        for user in users_to_notify:
+            send_mail(
+                'Product Deleted from Your Cart',
+                f'The product "{product.name}" has been deleted by the admin and is no longer available in your cart.',
+                'mustafa782a@gmail.com',  # Replace with your email
+                [user.email],
+                fail_silently=False,
+            )
 
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    
 @api_view(['GET'])
 @authentication_classes([CustomJWTAuthentication])
 @permission_classes([IsAuthenticated])
