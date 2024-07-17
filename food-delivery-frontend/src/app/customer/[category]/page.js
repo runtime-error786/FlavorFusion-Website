@@ -46,7 +46,7 @@ const Home = ({ params }) => {
       let response = await axios.post('http://localhost:8001/like_product/', { productId }, {
         withCredentials: true
       });
-      dispatch(ShowAllUser2(SearchProd, SortProd, currentPage, params.category));
+      dispatch(ShowAllUser2(SearchProd, SortProd, currentPage, params.category,role));
     } catch (error) {
       console.error("Error adding product to cart:", error);
       toast.error("Your session expired. Please sign out and sign in again.");
