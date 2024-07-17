@@ -51,7 +51,7 @@ const Protect = ({ children }) => {
         console.log("customer role")
 
         if (
-            router.startsWith("/customer") || router=="/customer/cart" || router=="/customer/cart/success" || router=="/customer/cart/cancel" ||
+            router.startsWith("/customer") || router=="/customer/cart"  ||
             router==="/error"
         ) {
             return <>{children}</>;
@@ -69,6 +69,7 @@ const Protect = ({ children }) => {
             router=="/customer/Pasta" ||
             router=="/customer/Pizza" ||
             router=="/customer/Sandwich" ||
+          
             router=="/customer/Dessert" ||
             router==="/error2" ||
             router==="/signin"

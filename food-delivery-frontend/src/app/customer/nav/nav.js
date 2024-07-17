@@ -78,14 +78,16 @@ const CustomNavbar = () => {
                             </li>
                             { role !== "Guest" && 
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Cart</a>
+                                <a className="nav-link" href="/customer/cart">Cart</a>
                             </li>
                             }
                         </ul>
                         {role !== "Guest" &&
                             <div className="d-flex flex-column align-items-center mt-auto mb-3">
                                 {imageURL ? (
+                                    <a href='/customer/profile'>
                                     <img src={imageURL} alt="User Profile" className="profile-img" />
+                                    </a>
                                 ) : (
                                     <FontAwesomeIcon icon={faUserCircle} size="2x" className="profile-icon" />
                                 )}
