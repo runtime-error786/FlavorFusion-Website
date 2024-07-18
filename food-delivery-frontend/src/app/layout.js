@@ -7,7 +7,6 @@ import { Provider } from "react-redux";
 import { Storee } from "@/Store";
 import Protect from "./Others/Protect";
 import BootstrapClient from "./Others/Bootstrap_js";
-import Chatbot from "./customer/Bot/page";
 
 export default function RootLayout({ children }) {
   return (
@@ -18,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Protect>
         {children}
-        <Chatbot></Chatbot>
+        
         </Protect>
         </body>
       </GoogleOAuthProvider>
