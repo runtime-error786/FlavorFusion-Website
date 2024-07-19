@@ -31,11 +31,11 @@ const Chatbot = () => {
             setChatHistory(newChatHistory);
 
             try {
-                const response = await axios.post('http://localhost:2002/api/chat', { message });
+                const response = await axios.post('http://localhost:8001/query/', { query: message });
 
                 if (response.status === 200) {
                     const data = response.data;
-                    setChatHistory([...newChatHistory, { sender: 'chatbot', message: data.response }]);
+                    setChatHistory([...newChatHistory, { sender: 'chatbot', message: data.answer }]);
                     setNotification(true);
                 } else {
                     console.error('Failed to send message');
@@ -62,7 +62,7 @@ const Chatbot = () => {
     return (
         <div className="chatbotContainer">
             <div className="chatIcon" onClick={toggle}>
-            <img src="/botLogo.png" width={60} alt="Chat Icon" className="yellowBackgroundImage" />
+                <img src="/botLogo.png" width={60} alt="Chat Icon" className="yellowBackgroundImage" />
             </div>
             {isOpen && (
                 <div className="chatPopup">
