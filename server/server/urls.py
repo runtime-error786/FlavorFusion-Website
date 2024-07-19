@@ -23,7 +23,7 @@ from like.views import like_product
 from carti.views import add_to_cart,cart_count_view
 from carti.views import show_cart,update_cart,remove_cart_item
 from checkout.views import create_checkout_session,clear_cart_items,verify_payment
-
+from LLM.views import QueryView
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('otp/', send_otp, name='generate-otp'),
@@ -58,6 +58,8 @@ urlpatterns = [
     path('verifypay/', verify_payment, name='verify'),
     path('products_guest/', product_guest, name='guest'),
     path('cartcount/', cart_count_view, name='cart_count_view'),
+    path('query/', QueryView.as_view(), name='query'),
+
 
 ]
 

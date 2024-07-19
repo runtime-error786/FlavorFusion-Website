@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'Profile',
     'like',
     'carti',
-    'checkout'
+    'checkout',
+    'LLM'
 ]
 
 MIDDLEWARE = [
